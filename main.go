@@ -1,22 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"os"
 )
 
-
 var (
 	readStdin = flag.Bool("i", false, "read file from stdin")
-	fileName = flag.String("f", "", "Go source filename")
-	format = flag.String("format", "emacs", "output format [emacs]")
+	fileName  = flag.String("f", "", "Go source filename")
+	format    = flag.String("format", "emacs", "output format [emacs]")
 )
 
 func main() {
 	flag.Parse()
-	
+
 	var (
 		src []byte
 		err error
@@ -28,9 +27,9 @@ func main() {
 		}
 	} else if *fileName != "" {
 		src, err = ioutil.ReadFile(*fileName)
-                if err != nil {
-                        panic(err)
-                }
+		if err != nil {
+			panic(err)
+		}
 	} else {
 		flag.Usage()
 		return
@@ -44,9 +43,9 @@ func main() {
 
 func output(items []item) {
 	switch *format {
-        case "emacs":
-                for _, i := range items {
-			fmt.Printf("%s,,%s,,%d\n", i.Title, i.Element, i.Pos) 
-                }
-        }
+	case "emacs":
+		for _, i := range items {
+			fmt.Printf("%s,,%s,,%d\n", i.Title, i.Element, i.Pos)
+		}
+	}
 }
